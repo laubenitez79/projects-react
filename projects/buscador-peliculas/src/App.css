@@ -1,0 +1,66 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  gap: 32px;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movies {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 32px;
+}
+
+.movie {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.movie:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.movie h3, .movie p{
+  margin: 0;
+}
+
+.movie img {
+  border-radius: 8px;
+  margin-top: 16px;
+  height: 335.95px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies{
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .movies{
+    width: 80%;
+  }
+}
