@@ -1,4 +1,4 @@
-import { EVENTS } from "./consts";
+import { BUTTONS, EVENTS } from "./consts";
 
 export function navigate(href) {
   window.history.pushState({}, "", href);
@@ -12,7 +12,7 @@ export function Link({ target, to, ...props }) {
   const handleClick = (event) => {
     event.preventDefault();
 
-    const isMainEvent = event.button === 0;
+    const isMainEvent = event.button === BUTTONS.primary;
     const isModifiedEvent = event.metaKey || event.ctrlKey || event.altKey || event.shiftKey;
     const isManageableEvent = target === undefined || target === "_self";
 

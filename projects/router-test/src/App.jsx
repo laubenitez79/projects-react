@@ -1,32 +1,35 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy } from 'react'
 import './App.css'
-import { EVENTS } from './consts.js'
 import  HomePage  from './pages/Home.jsx'
-import  About from './pages/About.jsx'
+import Page404 from './pages/404'
+import SearchPage from './pages/SearchPage'
+import { Router } from './Router'
+import { Route } from './Route'
 
+const About = lazy(() => import(`./pages/About.jsx`))
+
+const routes = [
+  {
+    path : '/:lang/about',
+    Component: About
+  },
+  {
+    path : '/search/:query',
+    Component: SearchPage
+  }
+]
 
 function App() {
-  const [currentPath , setCurrentPath] = useState(window.location.pathname)
-
-  useEffect(() => {
-    const onLocationChange = () => {
-      setCurrentPath(window.location.pathname)
-    }
-
-    window.addEventListener(EVENTS.PUSHSTATE, onLocationChange)
-    window.addEventListener(EVENTS.POPSTATE, onLocationChange)
-
-    return () => {
-      window.removeEventListener(EVENTS.PUSHSTATE, onLocationChange)
-      window.removeEventListener(EVENTS.POPSTATE, onLocationChange)
-    }
-  }, [])
 
   return (
     <main>
       <h1>Router test</h1>
-      {currentPath === '/' && <HomePage />}
-      {currentPath === '/about' && <About/>}
+        <Suspense fallback={null}>
+          <Router routes={routes} defaultComponent={Page404}>
+            <Route path='/' Component={HomePage}/>
+            <Route path='/about' Component={About}/>
+          </Router>
+        </Suspense>
     </main>
   )
 }
